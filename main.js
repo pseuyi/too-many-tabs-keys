@@ -9,13 +9,13 @@ chrome.tabs.onCreated.addListener(() => {
 	chrome.tabs.query({}, (tabs) => {
 		console.log('in query', tabs.length)
 		openTabs = tabs.length;
+		checkTabs(openTabs)
 	})	
-
-	console.log('num open', openTabs)
 
 })
 
-	if(openTabs>10) {
+var checkTabs = (length) =>{
+	if(length>10) {
 		// transform tabs to keys
 		var polySynth = new Tone.PolySynth(6, Tone.Synth, {
 		  "oscillator" : {
@@ -29,3 +29,4 @@ chrome.tabs.onCreated.addListener(() => {
 		polySynth.triggerAttack("C4");
 
 	}
+}
