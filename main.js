@@ -14,7 +14,7 @@ chrome.tabs.onCreated.addListener(() => {
 		var num = openTabs.toString()
 		console.log(num)
 		chrome.browserAction.setBadgeText({text: num})
-	})	
+	})
 
 })
 chrome.tabs.onRemoved.addListener(() => {
@@ -32,6 +32,7 @@ var checkTabs = (length) =>{
 		// set to warning colors
 		chrome.browserAction.setBadgeBackgroundColor({color: '#b2b724'})
 		if(length>20) chrome.browserAction.setBadgeBackgroundColor({color: '#ff6100'})
+  }
 		// transform tabs to keys
     chrome.tabs.onActivated.addListener(function (tab){
       chrome.tabs.query({
@@ -40,7 +41,6 @@ var checkTabs = (length) =>{
         playNote(activeTabs[0].index, length)
       })
     })
-	}
 }
 
 var polySynth = new Tone.PolySynth(6, Tone.Synth, {
