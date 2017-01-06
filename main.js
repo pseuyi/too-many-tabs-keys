@@ -1,21 +1,27 @@
 /* code here */
 
-var openTabs;
-chrome.tabs.query({}, function(tabs){
-	openTabs = tabs.length;
-	console.log('num open', openTabs)
-})
+setInterval(function(){
+	console.log('checking')
+	chrome.tabs.query({}, function(tabs){
 
-if(openTabs>10) {
-	var polySynth = new Tone.PolySynth(6, Tone.Synth, {
-	  "oscillator" : {
-	    "partials" : [0, 2, 3, 4],
-	  },
-	  "volume": -12
-	}).toMaster();
+		var openTabs = tabs.length;
+		console.log('num open', openTabs)
+		if(openTabs>15) {
+			var polySynth = new Tone.PolySynth(6, Tone.Synth, {
+			  "oscillator" : {
+			    "partials" : [0, 2, 3, 4],
+			  },
+			  "volume": -12
+			}).toMaster();
 
-	console.log("MAIN JS")
+			console.log("MAIN JS")
 
-	polySynth.triggerAttack("C4");
-	
-}
+			polySynth.triggerAttack("C4");
+
+		}
+
+	})
+
+}, 1000)
+
+
