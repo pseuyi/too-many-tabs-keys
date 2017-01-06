@@ -6,7 +6,9 @@ setInterval(function(){
 
 		var openTabs = tabs.length;
 		console.log('num open', openTabs)
-		if(openTabs>15) {
+
+		if(openTabs>10) {
+			// transform tabs to keys
 			var polySynth = new Tone.PolySynth(6, Tone.Synth, {
 			  "oscillator" : {
 			    "partials" : [0, 2, 3, 4],
