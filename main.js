@@ -3,7 +3,7 @@
 // fire query to count open tabs when new tab created
 var openTabs;
 
-chrome.browserAction.setBadgeBackgroundColor({color: '#b2b724'})
+chrome.browserAction.setBadgeBackgroundColor({color: '#3cb524'})
 
 chrome.tabs.onCreated.addListener(() => {
 	chrome.tabs.query({}, (tabs) => {
@@ -26,6 +26,9 @@ chrome.tabs.onRemoved.addListener(() => {
 
 var checkTabs = (length) =>{
 	if(length>10) {
+		// set to warning colors
+		chrome.browserAction.setBadgeBackgroundColor({color: '#b2b724'})
+		if(length>20) chrome.browserAction.setBadgeBackgroundColor({color: '#ff6100'})
 		// transform tabs to keys
     chrome.tabs.onActivated.addListener(function (tab){
       chrome.tabs.query({
@@ -34,7 +37,6 @@ var checkTabs = (length) =>{
         playNote(activeTabs[0].index)
       })
     })
-
 	}
 }
 
