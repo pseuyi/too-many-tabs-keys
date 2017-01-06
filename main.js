@@ -30,6 +30,13 @@ var checkTabs = (length) =>{
 	}
 }
 
+var polySynth = new Tone.PolySynth(6, Tone.Synth, {
+ "oscillator" : {
+   "partials" : [0, 2, 3, 4],
+ },
+ "volume": -12
+}).toMaster();
+
 function playNote(steps){
     let counter = steps, baseFrequency = 220;
     while (counter > 0){
