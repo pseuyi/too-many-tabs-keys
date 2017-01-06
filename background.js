@@ -1,1 +1,0 @@
-/* this file runs in the background when extension is loaded*/
