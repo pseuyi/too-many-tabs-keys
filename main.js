@@ -3,6 +3,8 @@
 // fire query to count open tabs when new tab created
 var openTabs;
 
+chrome.browserAction.setBadgeBackgroundColor({color: '#b2b724'})
+
 chrome.tabs.onCreated.addListener(() => {
 	chrome.tabs.query({}, (tabs) => {
 		openTabs = tabs.length;
