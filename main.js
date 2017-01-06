@@ -7,12 +7,18 @@ chrome.tabs.onCreated.addListener(() => {
 	chrome.tabs.query({}, (tabs) => {
 		openTabs = tabs.length;
 		checkTabs(openTabs)
+		//creates badge for tab count
+		var num = openTabs.toString()
+		console.log(num)
+		chrome.browserAction.setBadgeText({text: num})
 	})	
 })
 chrome.tabs.onRemoved.addListener(() => {
 	chrome.tabs.query({}, (tabs) => {
 		openTabs = tabs.length;
 		checkTabs(openTabs)
+		var num = openTabs.toString()
+		chrome.browserAction.setBadgeText({text: num})
 	})	
 })
 
