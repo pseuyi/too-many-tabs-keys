@@ -3,22 +3,35 @@
 // fire query to count open tabs when new tab created
 var openTabs;
 
+chrome.browserAction.setBadgeBackgroundColor({color: '#3cb524'})
+
 chrome.tabs.onCreated.addListener(() => {
 	chrome.tabs.query({}, (tabs) => {
 		openTabs = tabs.length;
 		checkTabs(openTabs)
-	})
+
+		//creates badge for tab count
+		var num = openTabs.toString()
+		console.log(num)
+		chrome.browserAction.setBadgeText({text: num})
+	})	
+
 })
 chrome.tabs.onRemoved.addListener(() => {
 	chrome.tabs.query({}, (tabs) => {
 		openTabs = tabs.length;
     // if (openTabs < 10) chrome.tabs.onActivated.removeListener();
 		checkTabs(openTabs)
+    var num = openTabs.toString()
+		chrome.browserAction.setBadgeText({text: num})
 	})
 })
 
 var checkTabs = (length) =>{
-  console.log("LENGTH", length)
+	if(length>10) {
+		// set to warning colors
+		chrome.browserAction.setBadgeBackgroundColor({color: '#b2b724'})
+		if(length>20) chrome.browserAction.setBadgeBackgroundColor({color: '#ff6100'})
 		// transform tabs to keys
     chrome.tabs.onActivated.addListener(function (tab){
       chrome.tabs.query({
@@ -27,6 +40,7 @@ var checkTabs = (length) =>{
         playNote(activeTabs[0].index, length)
       })
     })
+	}
 }
 
 var polySynth = new Tone.PolySynth(6, Tone.Synth, {
