@@ -1,12 +1,34 @@
 /* code here */
-var polySynth = new Tone.PolySynth(6, Tone.Synth, {
-  "oscillator" : {
-    "partials" : [0, 2, 3, 4],
-  },
-  "volume": -12
-}).toMaster();
 
-console.log("MAIN JS")
+// fire query to count open tabs when new tab created
+var openTabs;
+
+chrome.tabs.onCreated.addListener(() => {
+	chrome.tabs.query({}, (tabs) => {
+		openTabs = tabs.length;
+		checkTabs(openTabs)
+	})	
+})
+chrome.tabs.onRemoved.addListener(() => {
+	chrome.tabs.query({}, (tabs) => {
+		openTabs = tabs.length;
+		checkTabs(openTabs)
+	})	
+})
+
+var checkTabs = (length) =>{
+	if(length>10) {
+		// transform tabs to keys
+    chrome.tabs.onActivated.addListener(function (tab){
+      chrome.tabs.query({
+          active: true
+      }, function (activeTabs) {
+        playNote(activeTabs[0].index)
+      })
+    })
+
+	}
+}
 
 function playNote(steps){
     let counter = steps, baseFrequency = 220;
@@ -24,11 +46,3 @@ function playNote(steps){
 
     }
 }
-
-chrome.tabs.onActivated.addListener(function (tab){
-  chrome.tabs.query({
-      active: true
-  }, function (activeTabs) {
-    playNote(activeTabs[0].index)
-  })
-})
